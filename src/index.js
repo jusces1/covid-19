@@ -13,11 +13,11 @@ async function init(data) {
   const response = data.R.eg;
   const convertedDataUS = converUsLinearChartData(response);
 
-  const usData = await axios.get("https://covidapi.info/api/v1/country/usa");
+  const usData = await axios.get("https://covidtracking.com/api/us/daily");
   const stateData = await axios.get(
     "https://covidtracking.com/api/states/daily"
   );
-  iniCharts(stateData.data, usData.data.result, convertedDataUS);
+  iniCharts(stateData.data, usData.data, convertedDataUS);
 }
 
 function initGoogleCharts() {

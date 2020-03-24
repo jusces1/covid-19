@@ -18,8 +18,8 @@ function uniqueState(arr, fn) {
 }
 
 export function iniCharts(statesData, us, convertedDataUS) {
-  const usData = Object.keys(us).map(x => {
-    return { state: "USA", positive: us[x].confirmed, date: x };
+  const usData = us.map(x => {
+    return { state: "USA", ...x };
   });
   const data = [...statesData, ...usData, ...convertedDataUS];
   const states = uniqueState(statesData, function(x) {
