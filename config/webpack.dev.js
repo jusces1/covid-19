@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
@@ -45,7 +46,7 @@ module.exports = {
               name: "[name].[ext]",
               outputPath: "assets/"
             }
-          },
+          }
         ]
       },
       {
@@ -69,5 +70,10 @@ module.exports = {
       template: "./src/index.html",
       filename: "index.html"
     }),
+    new webpack.DefinePlugin({
+      GOOGLE_DOCS: JSON.stringify(
+        "https://docs.google.com/spreadsheets/d/19UnTaiLiAo_X2we6Owl8jc4HYpNg2JXFjpI-j-qNCcA/gviz/tq?gid=0&headers=1&tq="
+      )
+    })
   ]
 };

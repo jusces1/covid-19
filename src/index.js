@@ -21,9 +21,8 @@ async function init(data) {
 }
 
 function initGoogleCharts() {
-  const query = new google.visualization.Query(
-    `https://docs.google.com/spreadsheets/d/19UnTaiLiAo_X2we6Owl8jc4HYpNg2JXFjpI-j-qNCcA/gviz/tq?gid=0&headers=1&tq=`
-  );
+  console.log(process.env.TESTAS);
+  const query = new google.visualization.Query(GOOGLE_DOCS);
   query.send(response => init(response));
 }
 
