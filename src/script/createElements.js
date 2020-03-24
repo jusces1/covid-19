@@ -1,5 +1,11 @@
 import Highcharts from "highcharts/highstock";
 import { convertDataToChartData, convertDataToLinearChartData } from "./utils";
+Highcharts.setOptions({
+  global: {
+    useUTC: false
+  }
+});
+
 /**
  * Custom Axis extension to allow emulation of negative values on a logarithmic
  * Y axis. Note that the scale is not mathematically correct, as a true
