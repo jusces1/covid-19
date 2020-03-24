@@ -105,7 +105,7 @@ module.exports = {
     }),
     new BrotliPlugin(),
     new webpack.DefinePlugin({
-      GOOGLE_DOCS: JSON.stringify(
+      "process.env.GOOGLE_DOCS": JSON.stringify(
         "https://docs.google.com/spreadsheets/d/19UnTaiLiAo_X2we6Owl8jc4HYpNg2JXFjpI-j-qNCcA/gviz/tq?gid=0&headers=1&tq="
       )
     })

@@ -22,7 +22,7 @@ async function init(data) {
 
 function initGoogleCharts() {
   console.log(process.env.TESTAS);
-  const query = new google.visualization.Query(GOOGLE_DOCS);
+  const query = new google.visualization.Query(process.env.GOOGLE_DOCS);
   query.send(response => init(response));
 }
 
