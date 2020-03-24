@@ -265,12 +265,17 @@ export function createSelect(states, data) {
     }
   }
   select.addEventListener("change", e => {
+    console.log(e.target.value);
     createColumnCharts(
       data.filter(rec => rec.state === e.target.value),
       statesNames[e.target.value]
     );
     createLineCharts(
-      data.filter(rec => rec.state === e.target.value),
+      data.filter(
+        rec =>
+          rec.state ===
+          (e.target.value === "USA" ? "USA-linear" : e.target.value)
+      ),
       statesNames[e.target.value]
     );
   });

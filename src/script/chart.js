@@ -17,11 +17,11 @@ function uniqueState(arr, fn) {
   return distinct;
 }
 
-export function iniCharts(statesData, us) {
+export function iniCharts(statesData, us, convertedDataUS) {
   const usData = Object.keys(us).map(x => {
     return { state: "USA", positive: us[x].confirmed, date: x };
   });
-  const data = [...statesData, ...usData];
+  const data = [...statesData, ...usData, ...convertedDataUS];
   const states = uniqueState(statesData, function(x) {
     return x.state;
   });
@@ -31,7 +31,7 @@ export function iniCharts(statesData, us) {
     "Total U.S."
   );
   createLineCharts(
-    data.filter(rec => rec.state === "USA"),
+    data.filter(rec => rec.state === "USA-linear"),
     "Total U.S."
   );
 }
