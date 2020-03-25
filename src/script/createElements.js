@@ -1,10 +1,5 @@
 import Highcharts from "highcharts/highstock";
 import { convertDataToChartData, convertDataToLinearChartData } from "./utils";
-Highcharts.setOptions({
-  global: {
-    useUTC: false
-  }
-});
 
 /**
  * Custom Axis extension to allow emulation of negative values on a logarithmic
@@ -211,7 +206,7 @@ export function createLineCharts(data, title) {
             color: "orange"
           }
         },
-        min: title.includes("Total") ? 100 : 0,
+        min: 0,
         labels: {
           style: {
             color: "orange"
@@ -277,11 +272,7 @@ export function createSelect(states, data) {
       statesNames[e.target.value]
     );
     createLineCharts(
-      data.filter(
-        rec =>
-          rec.state ===
-          (e.target.value === "USA" ? "USA-linear" : e.target.value)
-      ),
+      data.filter(rec => rec.state === e.target.value),
       statesNames[e.target.value]
     );
   });
