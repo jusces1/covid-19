@@ -1,7 +1,8 @@
 import {
   createSelect,
   createColumnCharts,
-  createLineCharts
+  createLineCharts,
+  createColumnTestCharts
 } from "./createElements";
 
 function uniqueState(arr, fn) {
@@ -30,7 +31,12 @@ export function iniCharts(statesData, us) {
     data.filter(rec => rec.state === "USA"),
     "Total U.S."
   );
+
   createLineCharts(
+    data.filter(rec => rec.state === "USA"),
+    "Total U.S."
+  );
+  createColumnTestCharts(
     data.filter(rec => rec.state === "USA"),
     "Total U.S."
   );

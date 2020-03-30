@@ -27,11 +27,11 @@ function compare(a, b) {
   return comparison;
 }
 
-export function convertDataToLinearChartData(data) {
+export function convertDataToLinearChartData(data, column) {
   data.sort(compare);
   const convertedData = data.map((rec, key) => {
     const prevKey = key - 1;
-    const val = key > 0 ? rec.positive - data[prevKey].positive : rec.positive;
+    const val = key > 0 ? rec[column] - data[prevKey][column] : rec[column];
     let date;
     if (typeof rec.date === "number") {
       date =
@@ -43,6 +43,31 @@ export function convertDataToLinearChartData(data) {
     } else date = rec.date;
 
     return [new Date(date).getTime(), val];
+  });
+  return convertedData;
+}
+
+export function convertDataToPPercent(data) {
+  data.sort(compare);
+  const convertedData = data.map((rec, key) => {
+    const prevKey = key - 1;
+    const val = key > 0 ? rec.positive - data[prevKey].positive : rec.positive;
+    const val2 =
+      key > 0
+        ? rec.totalTestResults - data[prevKey].totalTestResults
+        : rec.totalTestResults;
+    const result = parseFloat(((val / val2) * 100).toFixed(2));
+    let date;
+    if (typeof rec.date === "number") {
+      date =
+        rec.date.toString().substr(0, 4) +
+        "-" +
+        rec.date.toString().substr(4, 2) +
+        "-" +
+        rec.date.toString().substr(6);
+    } else date = rec.date;
+
+    return [new Date(date).getTime(), result];
   });
   return convertedData;
 }

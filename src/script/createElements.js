@@ -1,5 +1,9 @@
 import Highcharts from "highcharts/highstock";
-import { convertDataToChartData, convertDataToLinearChartData } from "./utils";
+import {
+  convertDataToChartData,
+  convertDataToLinearChartData,
+  convertDataToPPercent
+} from "./utils";
 
 /**
  * Custom Axis extension to allow emulation of negative values on a logarithmic
@@ -99,7 +103,7 @@ const statesNames = {
 };
 
 export function createColumnCharts(data, title) {
-  const chartData = convertDataToLinearChartData(data);
+  const chartData = convertDataToLinearChartData(data, "positive");
   Highcharts.chart("column-chart", {
     chart: {
       type: "column",
@@ -153,7 +157,7 @@ export function createColumnCharts(data, title) {
 }
 
 export function createLineCharts(data, title) {
-  const chartData = convertDataToChartData(data);
+  const chartData = convertDataToChartData(data, "totalTestResults");
   Highcharts.setOptions({
     lang: {
       thousandsSep: ","
@@ -229,7 +233,7 @@ export function createLineCharts(data, title) {
     },
     series: [
       {
-        name: "COVID-19 Cases",
+        name: "COVID-19 Tests",
         data: chartData,
         color: "#059FF3"
       },
@@ -244,6 +248,102 @@ export function createLineCharts(data, title) {
       buttons: {
         contextButton: {
           menuItems: ["downloadPNG", "downloadSVG"]
+        }
+      }
+    }
+  });
+}
+
+export function createColumnTestCharts(data, title) {
+  const chartData = convertDataToLinearChartData(data, "totalTestResults");
+  const totalPPrecent = convertDataToPPercent(data, "totalTestResults");
+
+  Highcharts.chart("column-chart-testings", {
+    chart: {
+      type: "column",
+      zoomType: "x"
+    },
+    caption: {
+      text: "Sources: The COVID Tracking Project, The GailFosler Group",
+      align: "right"
+    },
+    title: {
+      text: `COVID-19 Testing In ${
+        title.includes("Total") ? "U.S." : title
+      } Per Day`
+    },
+    credits: {
+      enabled: false
+    },
+    yAxis: [
+      {
+        title: {
+          text: "Number of Tests",
+          style: {
+            color: "#059FF3"
+          }
+        },
+        labels: {
+          formatter: function() {
+            return Highcharts.numberFormat(this.value, 0, ".", ",");
+          },
+          style: {
+            color: "#059FF3"
+          }
+        }
+      },
+      {
+        opposite: true,
+        title: {
+          text: "Percent",
+          style: {
+            color: "orange"
+          }
+        },
+        min: 0,
+        max: 100,
+        labels: {
+          style: {
+            color: "orange"
+          },
+          formatter: function() {
+            return Highcharts.numberFormat(this.value, 0, ".", ",");
+          }
+        }
+      }
+    ],
+    xAxis: {
+      type: "datetime",
+      dateTimeLabelFormats: {
+        week: "%b %e",
+        day: "%b %e"
+      }
+    },
+    series: [
+      {
+        name: "COVID-19 Cases",
+        data: chartData,
+        color: "#059FF3"
+      },
+      {
+        name: "Share Positive",
+        type: "spline",
+        yAxis: 1,
+        states: {
+          hover: {
+            lineWidthPlus: 0
+          }
+        },
+        lineWidth: 0,
+        data: totalPPrecent,
+        color: "orange"
+      }
+    ],
+    exporting: {
+      buttons: {
+        contextButton: {
+          menuItems: ["downloadPNG", "downloadSVG"],
+          y: -2
         }
       }
     }
@@ -272,6 +372,10 @@ export function createSelect(states, data) {
       statesNames[e.target.value]
     );
     createLineCharts(
+      data.filter(rec => rec.state === e.target.value),
+      statesNames[e.target.value]
+    );
+    createColumnTestCharts(
       data.filter(rec => rec.state === e.target.value),
       statesNames[e.target.value]
     );

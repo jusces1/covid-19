@@ -4,6 +4,12 @@
     display: block;
   }
 }
+.column-chart-testings {
+  max-width: 600px;
+  @media only screen and (max-width: 800px) {
+    max-width: 100%;
+  }
+}
 #states {
   display: block;
   font-size: 18px;

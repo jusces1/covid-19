@@ -8,6 +8,7 @@ async function init() {
   const stateData = await axios.get(
     "https://covidtracking.com/api/states/daily"
   );
+
   iniCharts(stateData.data, usData.data);
 }
 
