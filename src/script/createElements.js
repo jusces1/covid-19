@@ -267,8 +267,8 @@ export function createColumnTestCharts(data, title) {
     caption: {
       useHTML: true,
       text: `
+      <p class="caption">Sources: The COVID Tracking Project, The GailFosler Group</p>
         <p class="caption-text">Any 100% readings in early March indicate days when few tests were administered and only to those with severe, obvious symptoms.</p>
-         <p class="caption">Sources: The COVID Tracking Project, The GailFosler Group</p>
       `
     },
     title: {
@@ -277,7 +277,12 @@ export function createColumnTestCharts(data, title) {
       } Per Day`
     },
     legend: {
-      y: 100
+      title: {
+        align: "center",
+        style: {
+          textAlign: "center"
+        }
+      }
     },
     credits: {
       enabled: false
@@ -310,7 +315,7 @@ export function createColumnTestCharts(data, title) {
         },
         min: 0,
         max: 100,
-        tickPositioner: () => [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+        endOnTick: true,
         labels: {
           style: {
             color: "orange"
