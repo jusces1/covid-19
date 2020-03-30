@@ -322,7 +322,7 @@ export function createColumnTestCharts(data, title) {
     },
     series: [
       {
-        name: "COVID-19 Cases",
+        name: "COVID-19 Tests",
         data: chartData,
         color: "#059FF3"
       },
