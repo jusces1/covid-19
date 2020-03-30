@@ -310,7 +310,7 @@ export function createColumnTestCharts(data, title) {
         },
         min: 0,
         max: 100,
-        tickPositioner: () => [0, 20, 40, 60, 80, 100],
+        tickPositioner: () => [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
         labels: {
           style: {
             color: "orange"
