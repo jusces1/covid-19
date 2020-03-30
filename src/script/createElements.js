@@ -263,14 +263,21 @@ export function createColumnTestCharts(data, title) {
       type: "column",
       zoomType: "x"
     },
+
     caption: {
-      text: "Sources: The COVID Tracking Project, The GailFosler Group",
-      align: "right"
+      useHTML: true,
+      text: `
+        <p class="caption-text">Any 100% readings in early March indicate days when few tests were administered and only to those with severe, obvious symptoms.</p>
+         <p class="caption">Sources: The COVID Tracking Project, The GailFosler Group</p>
+      `
     },
     title: {
       text: `COVID-19 Testing In ${
         title.includes("Total") ? "U.S." : title
       } Per Day`
+    },
+    legend: {
+      y: 100
     },
     credits: {
       enabled: false
