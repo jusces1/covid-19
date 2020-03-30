@@ -56,7 +56,8 @@ export function convertDataToPPercent(data) {
       key > 0
         ? rec.totalTestResults - data[prevKey].totalTestResults
         : rec.totalTestResults;
-    const result = parseFloat(((val / val2) * 100).toFixed(2));
+    const result =
+      val && val2 ? parseFloat(((val / val2) * 100).toFixed(2)) : 0;
     let date;
     if (typeof rec.date === "number") {
       date =

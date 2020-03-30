@@ -283,6 +283,7 @@ export function createColumnTestCharts(data, title) {
             color: "#059FF3"
           }
         },
+        min: 0,
         labels: {
           formatter: function() {
             return Highcharts.numberFormat(this.value, 0, ".", ",");
