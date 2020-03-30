@@ -326,7 +326,7 @@ export function createColumnTestCharts(data, title) {
         color: "#059FF3"
       },
       {
-        name: "Share Positive",
+        name: "Percent Positive",
         type: "spline",
         yAxis: 1,
         states: {
