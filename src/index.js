@@ -4,12 +4,13 @@ import axios from "axios";
 import "./styles/style.css";
 
 async function init() {
-  const usData = await axios.get("https://covidtracking.com/api/us/daily");
-  const stateData = await axios.get(
+  const usHistData = await axios.get("https://covidtracking.com/api/us/daily");
+  const stateHistData = await axios.get(
     "https://covidtracking.com/api/states/daily"
   );
+  const statetData = await axios.get("https://covidtracking.com/api/states");
 
-  iniCharts(stateData.data, usData.data);
+  iniCharts(stateHistData.data, usHistData.data, statetData.data);
 }
 
 init();

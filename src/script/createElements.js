@@ -2,8 +2,10 @@ import Highcharts from "highcharts/highstock";
 import {
   convertDataToChartData,
   convertDataToLinearChartData,
-  convertDataToPPercent
+  convertDataToPPercent,
+  convertDataToPopulationConfirmedData
 } from "./utils";
+import { STATES_NAMES } from "./constants";
 
 /**
  * Custom Axis extension to allow emulation of negative values on a logarithmic
@@ -42,76 +44,12 @@ require("highcharts/modules/data")(Highcharts);
 require("highcharts/modules/pattern-fill")(Highcharts);
 require("highcharts/indicators/regressions")(Highcharts);
 
-const statesNames = {
-  USA: "Total U.S.",
-  AK: "Alaska",
-  AL: "Alabama",
-  AR: "Arkansas",
-  AZ: "Arizona",
-  CA: "California",
-  CO: "Colorado",
-  CT: "Connecticut",
-  DC: "District of Columbia",
-  DE: "Delaware",
-  FL: "Florida",
-  GA: "Georgia",
-  HI: "Hawaii",
-  IA: "Iowa",
-  ID: "Idaho",
-  IL: "Illinois",
-  IN: "Indiana",
-  KS: "Kansas",
-  KY: "Kentucky",
-  LA: "Louisiana",
-  MA: "Massachusetts",
-  MD: "Maryland",
-  ME: "Maine",
-  MI: "Michigan",
-  MN: "Minnesota",
-  MO: "Missouri",
-  MS: "Mississippi",
-  MT: "Montana",
-  NC: "North Carolina",
-  ND: "North Dakota",
-  NE: "Nebraska",
-  NH: "New Hampshire",
-  NJ: "New Jersey",
-  NM: "New Mexico",
-  NV: "Nevada",
-  NY: "New York",
-  OH: "Ohio",
-  OK: "Oklahoma",
-  OR: "Oregon",
-  PA: "Pennsylvania",
-  RI: "Rhode Island",
-  SC: "South Carolina",
-  SD: "South Dakota",
-  TN: "Tennessee",
-  TX: "Texas",
-  UT: "Utah",
-  VA: "Virginia",
-  VT: "Vermont",
-  WA: "Washington",
-  WI: "Wisconsin",
-  WV: "West Virginia",
-  WY: "Wyoming",
-  PR: "Puerto Rico",
-  VI: "U.S. Virgin Islands",
-  GU: "Guam",
-  MP: "Northern Mariana Islands",
-  AS: "American Samoa"
-};
-
 export function createColumnCharts(data, title) {
   const chartData = convertDataToLinearChartData(data, "positive");
   Highcharts.chart("column-chart", {
     chart: {
       type: "column",
       zoomType: "x"
-    },
-    caption: {
-      text: "Sources: The COVID Tracking Project, The GailFosler Group",
-      align: "right"
     },
     title: {
       text: `Daily New COVID-19 Cases in ${
@@ -175,10 +113,6 @@ export function createLineCharts(data, title) {
     },
     credits: {
       enabled: false
-    },
-    caption: {
-      text: "Sources: The COVID Tracking Project, The GailFosler Group",
-      align: "right"
     },
     tooltip: {
       shared: true,
@@ -262,14 +196,6 @@ export function createColumnTestCharts(data, title) {
     chart: {
       type: "column",
       zoomType: "x"
-    },
-
-    caption: {
-      useHTML: true,
-      text: `
-      <p class="caption">Sources: The COVID Tracking Project, The GailFosler Group</p>
-        <p class="caption-text">Any 100% readings in early March indicate days when few tests were administered and only to those with severe, obvious symptoms.</p>
-      `
     },
     title: {
       text: `COVID-19 Testing In ${
@@ -366,6 +292,44 @@ export function createColumnTestCharts(data, title) {
   });
 }
 
+export function createColumnChartPopulationConfirmed(data) {
+  const chartData = convertDataToPopulationConfirmedData(data);
+  Highcharts.chart("column-chart-population-confirmed", {
+    chart: {
+      type: "column",
+      zoomType: "x"
+    },
+    title: {
+      text: `Percent Of Population Confirmed To Have Had COVID-19, Top 25 States And Territories`
+    },
+    credits: {
+      enabled: false
+    },
+    yAxis: {
+      title: {
+        text: "Percent"
+      }
+    },
+    xAxis: {
+      categories: chartData.y
+    },
+    series: [
+      {
+        name: "Population percent",
+        data: chartData.x
+      }
+    ],
+    exporting: {
+      buttons: {
+        contextButton: {
+          menuItems: ["downloadPNG", "downloadSVG"],
+          y: -2
+        }
+      }
+    }
+  });
+}
+
 export function createSelect(states, data) {
   const select = document.getElementById("states");
   const option = document.createElement("option");
@@ -373,10 +337,10 @@ export function createSelect(states, data) {
   option.value = "USA";
   select.add(option);
 
-  for (let i = 0; i < Object.keys(statesNames).length; i++) {
-    if (statesNames[states[i]]) {
+  for (let i = 0; i < Object.keys(STATES_NAMES).length; i++) {
+    if (STATES_NAMES[states[i]]) {
       const option = document.createElement("option");
-      option.text = statesNames[states[i]];
+      option.text = STATES_NAMES[states[i]];
       option.value = states[i];
       select.add(option);
     }
@@ -385,15 +349,15 @@ export function createSelect(states, data) {
     console.log(e.target.value);
     createColumnCharts(
       data.filter(rec => rec.state === e.target.value),
-      statesNames[e.target.value]
+      STATES_NAMES[e.target.value]
     );
     createLineCharts(
       data.filter(rec => rec.state === e.target.value),
-      statesNames[e.target.value]
+      STATES_NAMES[e.target.value]
     );
     createColumnTestCharts(
       data.filter(rec => rec.state === e.target.value),
-      statesNames[e.target.value]
+      STATES_NAMES[e.target.value]
     );
   });
 }

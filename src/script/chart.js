@@ -2,7 +2,8 @@ import {
   createSelect,
   createColumnCharts,
   createLineCharts,
-  createColumnTestCharts
+  createColumnTestCharts,
+  createColumnChartPopulationConfirmed
 } from "./createElements";
 
 function uniqueState(arr, fn) {
@@ -18,26 +19,33 @@ function uniqueState(arr, fn) {
   return distinct;
 }
 
-export function iniCharts(statesData, us) {
-  const usData = us.map(x => {
+function convertData(statesHistData, usHist) {
+  const usDataHist = usHist.map(x => {
     return { state: "USA", ...x };
   });
-  const data = [...statesData, ...usData];
-  const states = uniqueState(statesData, function(x) {
+  const data = [...statesHistData, ...usDataHist];
+  const states = uniqueState(statesHistData, function(x) {
     return x.state;
   });
-  createSelect(states, data);
+  return { data, states };
+}
+
+export function iniCharts(statesHistData, usHist, state) {
+  const hist = convertData(statesHistData, usHist);
+  createSelect(hist.states, hist.data);
+
   createColumnCharts(
-    data.filter(rec => rec.state === "USA"),
+    hist.data.filter(rec => rec.state === "USA"),
     "Total U.S."
   );
 
   createLineCharts(
-    data.filter(rec => rec.state === "USA"),
+    hist.data.filter(rec => rec.state === "USA"),
     "Total U.S."
   );
   createColumnTestCharts(
-    data.filter(rec => rec.state === "USA"),
+    hist.data.filter(rec => rec.state === "USA"),
     "Total U.S."
   );
+  createColumnChartPopulationConfirmed(state);
 }

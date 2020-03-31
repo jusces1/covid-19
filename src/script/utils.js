@@ -1,3 +1,5 @@
+import { STATES_POPULATION } from "./constants";
+
 export function convertDataToChartData(data) {
   let date;
   const convertedData = data.map(rec => {
@@ -71,4 +73,19 @@ export function convertDataToPPercent(data) {
     return [new Date(date).getTime(), result];
   });
   return convertedData;
+}
+
+export function convertDataToPopulationConfirmedData(data) {
+  const convertedData = data.map((rec, key) => {
+    const val = parseFloat(
+      ((rec.positive / STATES_POPULATION[rec.state]) * 100).toFixed(2)
+    );
+    return [rec.state, val];
+  });
+
+  convertedData.sort((a, b) => {
+    return b[1] - a[1];
+  });
+  const chart = convertedData.slice(0, 25);
+  return { x: chart.map(x => x[1]), y: chart.map(x => x[0]) };
 }
