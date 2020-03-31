@@ -295,6 +295,7 @@ export function createColumnTestCharts(data, title) {
             color: "#059FF3"
           }
         },
+        gridLineColor: "white",
         min: 0,
         labels: {
           formatter: function() {
@@ -315,6 +316,7 @@ export function createColumnTestCharts(data, title) {
         },
         min: 0,
         max: 100,
+        tickAmount: 5,
         endOnTick: true,
         labels: {
           style: {
