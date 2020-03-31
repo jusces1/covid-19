@@ -358,7 +358,6 @@ export function createSelect(states, data) {
     }
   }
   select.addEventListener("change", e => {
-    console.log(e.target.value);
     createColumnCharts(
       data.filter(rec => rec.state === e.target.value),
       STATES_NAMES[e.target.value]
