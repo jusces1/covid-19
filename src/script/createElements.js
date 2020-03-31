@@ -54,7 +54,10 @@ export function createColumnCharts(data, title) {
     title: {
       text: `Daily New COVID-19 Cases in ${
         title.includes("Total") ? "U.S." : title
-      }`
+      }`,
+      style: {
+        fontSize: 14
+      }
     },
     credits: {
       enabled: false
@@ -109,7 +112,10 @@ export function createLineCharts(data, title) {
     title: {
       text: `Total Cumulative COVID-19 Cases in ${
         title.includes("Total") ? "U.S." : title
-      }`
+      }`,
+      style: {
+        fontSize: 14
+      }
     },
     credits: {
       enabled: false
@@ -200,7 +206,10 @@ export function createColumnTestCharts(data, title) {
     title: {
       text: `COVID-19 Testing In ${
         title.includes("Total") ? "U.S." : title
-      } Per Day`
+      } Per Day`,
+      style: {
+        fontSize: 14
+      }
     },
     legend: {
       title: {
@@ -300,7 +309,10 @@ export function createColumnChartPopulationConfirmed(data) {
       zoomType: "x"
     },
     title: {
-      text: `Percent Of Population Confirmed To Have Had COVID-19, Top 25 States And Territories`
+      text: `Top 25 States And Territories by COVID-19 Sickness Rate`,
+      style: {
+        fontSize: 14
+      }
     },
     credits: {
       enabled: false
