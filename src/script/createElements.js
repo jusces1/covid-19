@@ -213,13 +213,13 @@ export function createColumnTestCharts(data, title) {
       height: 440
     },
     caption: {
-      text: `<span class="caption" x="200" style=" width: 100%; text-align: right; float: right;">
+      text: `<p class="caption">
       Sources: The COVID Tracking Project, The GailFosler Group
-    </span><br />
-    <span class="caption-text" >
+    </p>
+    <p class="caption-text" >
       Any 100% readings in early March indicate days when few tests were
       administered and only to those with severe, obvious symptoms.
-    </span>`,
+    </p>`,
       useHTML: true,
       align: "right"
     },
