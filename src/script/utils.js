@@ -86,6 +86,6 @@ export function convertDataToPopulationConfirmedData(data) {
   convertedData.sort((a, b) => {
     return b[1] - a[1];
   });
-  const chart = convertedData.slice(0, 25);
+  const chart = convertedData.slice(0, 20);
   return { x: chart.map(x => x[1]), y: chart.map(x => x[0]) };
 }

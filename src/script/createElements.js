@@ -209,17 +209,10 @@ export function createColumnTestCharts(data, title) {
   Highcharts.chart("column-chart-testings", {
     chart: {
       type: "column",
-      zoomType: "x",
-      height: 440
+      zoomType: "x"
     },
     caption: {
-      text: `<p class="caption">
-      Sources: The COVID Tracking Project, The GailFosler Group
-    </p>
-    <p class="caption-text" >
-      Any 100% readings in early March indicate days when few tests were
-      administered and only to those with severe, obvious symptoms.
-    </p>`,
+      text: `Sources: The COVID Tracking Project, The GailFosler Group`,
       useHTML: true,
       align: "right"
     },
@@ -334,7 +327,7 @@ export function createColumnChartPopulationConfirmed(data) {
       align: "right"
     },
     title: {
-      text: `Top 25 States/Territories, Share of Population With Confirmed COVID-19`,
+      text: `Top 20 States/Territories, Share of Population With Confirmed COVID-19`,
       style: {
         fontSize: 18
       }
