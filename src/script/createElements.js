@@ -334,7 +334,7 @@ export function createColumnChartPopulationConfirmed(data) {
       align: "right"
     },
     title: {
-      text: `Top 25 States/Territories, Share of Population With Confirmed COVID-19vv`,
+      text: `Top 25 States/Territories, Share of Population With Confirmed COVID-19`,
       style: {
         fontSize: 18
       }
