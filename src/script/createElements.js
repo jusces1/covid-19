@@ -60,7 +60,7 @@ export function createColumnCharts(data, title) {
         title.includes("Total") ? "U.S." : title
       }`,
       style: {
-        fontSize: 12
+        fontSize: 14
       }
     },
     credits: {
@@ -122,7 +122,7 @@ export function createLineCharts(data, title) {
         title.includes("Total") ? "U.S." : title
       }`,
       style: {
-        fontSize: 12
+        fontSize: 14
       }
     },
     credits: {
@@ -228,7 +228,7 @@ export function createColumnTestCharts(data, title) {
         title.includes("Total") ? "U.S." : title
       } Per Day`,
       style: {
-        fontSize: 12
+        fontSize: 14
       }
     },
     legend: {
@@ -336,7 +336,7 @@ export function createColumnChartPopulationConfirmed(data) {
     title: {
       text: `Top 25 States & Territories by Share of Population with Confirmed COVID-19`,
       style: {
-        fontSize: 12
+        fontSize: 14
       }
     },
     credits: {
