@@ -181,7 +181,7 @@ export function createLineCharts(data, title) {
     },
     series: [
       {
-        name: "COVID-19 Tests",
+        name: "COVID-19 Cases",
         data: chartData,
         color: "#059FF3"
       },
@@ -220,7 +220,8 @@ export function createColumnTestCharts(data, title) {
       Any 100% readings in early March indicate days when few tests were
       administered and only to those with severe, obvious symptoms.
     </span>`,
-      useHTML: true
+      useHTML: true,
+      align: "right"
     },
     title: {
       text: `COVID-19 Testing In ${
