@@ -51,12 +51,16 @@ export function createColumnCharts(data, title) {
       type: "column",
       zoomType: "x"
     },
+    caption: {
+      text: "Sources: The COVID Tracking Project, The GailFosler Group",
+      align: "right"
+    },
     title: {
       text: `Daily New COVID-19 Cases in ${
         title.includes("Total") ? "U.S." : title
       }`,
       style: {
-        fontSize: 14
+        fontSize: 12
       }
     },
     credits: {
@@ -109,12 +113,16 @@ export function createLineCharts(data, title) {
       type: "spline",
       zoomType: "x"
     },
+    caption: {
+      text: "Sources: The COVID Tracking Project, The GailFosler Group",
+      align: "right"
+    },
     title: {
       text: `Total Cumulative COVID-19 Cases in ${
         title.includes("Total") ? "U.S." : title
       }`,
       style: {
-        fontSize: 14
+        fontSize: 12
       }
     },
     credits: {
@@ -201,14 +209,25 @@ export function createColumnTestCharts(data, title) {
   Highcharts.chart("column-chart-testings", {
     chart: {
       type: "column",
-      zoomType: "x"
+      zoomType: "x",
+      height: 440
+    },
+    caption: {
+      text: `<span class="caption" x="200" style=" width: 100%; text-align: right; float: right;">
+      Sources: The COVID Tracking Project, The GailFosler Group
+    </span><br />
+    <span class="caption-text" >
+      Any 100% readings in early March indicate days when few tests were
+      administered and only to those with severe, obvious symptoms.
+    </span>`,
+      useHTML: true
     },
     title: {
       text: `COVID-19 Testing In ${
         title.includes("Total") ? "U.S." : title
       } Per Day`,
       style: {
-        fontSize: 14
+        fontSize: 12
       }
     },
     legend: {
@@ -308,10 +327,15 @@ export function createColumnChartPopulationConfirmed(data) {
       type: "column",
       zoomType: "x"
     },
+    caption: {
+      useHTML: true,
+      text: "Sources: The COVID Tracking Project, The GailFosler Group",
+      align: "right"
+    },
     title: {
-      text: `Top 25 States And Territories by COVID-19 Sickness Rate`,
+      text: `Top 25 States & Territories by Share of Population with Confirmed COVID-19`,
       style: {
-        fontSize: 14
+        fontSize: 12
       }
     },
     credits: {
@@ -327,8 +351,9 @@ export function createColumnChartPopulationConfirmed(data) {
     },
     series: [
       {
-        name: "Population percent",
-        data: chartData.x
+        name: "Percent of Population",
+        data: chartData.x,
+        color: "#7cb588"
       }
     ],
     exporting: {
