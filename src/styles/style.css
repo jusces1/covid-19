@@ -31,7 +31,9 @@
 }
 
 .chart {
-  width: 45%;
+  width: 50%;
+  margin: auto;
+
   height: 460px;
   @media only screen and (max-width: 800px) {
     width: 100%;
