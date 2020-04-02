@@ -16,7 +16,7 @@ export function convertDataToChartData(data) {
   return convertedData;
 }
 
-function compare(a, b) {
+export function compare(a, b) {
   const bandA = a.date;
   const bandB = b.date;
 

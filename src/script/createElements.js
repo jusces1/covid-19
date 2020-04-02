@@ -362,28 +362,18 @@ export function createColumnChartPopulationConfirmed(data) {
 }
 
 export function createSelect(states, data) {
-  let entries = Object.entries(STATES_NAMES);
-  let sorted = entries.sort((a, b) => a[1] - b[1]);
-  const sortedOBJ = Object.fromEntries(sorted);
-
   const select = document.getElementById("states");
-  const option = document.createElement("option");
-  option.text = "Total U.S.";
-  option.value = "USA";
-  select.add(option);
 
-  for (let i = 0; i < Object.keys(sortedOBJ).length; i++) {
-    if (sortedOBJ[states[i]]) {
-      const option = document.createElement("option");
-      option.text = sortedOBJ[states[i]];
-      option.value = states[i];
-      select.add(option);
-    }
+  for (let i = 0; i < Object.keys(STATES_NAMES).length; i++) {
+    const option = document.createElement("option");
+    option.text = STATES_NAMES[Object.keys(STATES_NAMES)[i]];
+    option.value = Object.keys(STATES_NAMES)[i];
+    select.add(option);
   }
   select.addEventListener("change", e => {
     createColumnCharts(
       data.filter(rec => rec.state === e.target.value),
-      sortedOBJ[e.target.value]
+      STATES_NAMES[e.target.value]
     );
     createLineCharts(
       data.filter(rec => rec.state === e.target.value),
