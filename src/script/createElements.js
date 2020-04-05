@@ -385,11 +385,11 @@ export function createSelect(states, data) {
     );
     createLineCharts(
       data.filter(rec => rec.state === e.target.value),
-      sortedOBJ[e.target.value]
+      STATES_NAMES[e.target.value]
     );
     createColumnTestCharts(
       data.filter(rec => rec.state === e.target.value),
-      sortedOBJ[e.target.value]
+      STATES_NAMES[e.target.value]
     );
   });
 }
