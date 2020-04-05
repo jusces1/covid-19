@@ -283,6 +283,14 @@ export function createColumnTestCharts(data, title) {
         day: "%b %e"
       }
     },
+    plotOptions: {
+      series: {
+        allowPointSelect: true,
+        marker: {
+          enabled: true
+        }
+      }
+    },
     series: [
       {
         name: "COVID-19 Tests",
