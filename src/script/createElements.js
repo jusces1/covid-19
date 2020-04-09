@@ -332,7 +332,7 @@ export function createColumnChartPopulationConfirmed(data) {
     caption: {
       useHTML: true,
       text:
-        "Sources: The COVID Tracking Project, The GailFosler Group, U.S. Census Bureau",
+        "Sources: The COVID Tracking Project.  U.S. Census Bureau, The GailFosler Group",
       align: "right",
     },
     title: {
