@@ -3,7 +3,7 @@ import {
   convertDataToChartData,
   convertDataToLinearChartData,
   convertDataToPPercent,
-  convertDataToPopulationConfirmedData
+  convertDataToPopulationConfirmedData,
 } from "./utils";
 import { STATES_NAMES } from "./constants";
 
@@ -12,12 +12,12 @@ import { STATES_NAMES } from "./constants";
  * Y axis. Note that the scale is not mathematically correct, as a true
  * logarithmic axis never reaches or crosses zero.
  */
-(function(H) {
+(function (H) {
   // Pass error messages
   H.Axis.prototype.allowNegativeLog = true;
 
   // Override conversions
-  H.Axis.prototype.log2lin = function(num) {
+  H.Axis.prototype.log2lin = function (num) {
     var isNegative = num < 0,
       adjustedNum = Math.abs(num),
       result;
@@ -27,7 +27,7 @@ import { STATES_NAMES } from "./constants";
     result = Math.log(adjustedNum) / Math.LN10;
     return isNegative ? -result : result;
   };
-  H.Axis.prototype.lin2log = function(num) {
+  H.Axis.prototype.lin2log = function (num) {
     var isNegative = num < 0,
       absNum = Math.abs(num),
       result = Math.pow(10, absNum);
@@ -49,55 +49,55 @@ export function createColumnCharts(data, title) {
   Highcharts.chart("column-chart", {
     chart: {
       type: "column",
-      zoomType: "x"
+      zoomType: "x",
     },
     caption: {
       text: "Sources: The COVID Tracking Project, The GailFosler Group",
-      align: "right"
+      align: "right",
     },
     title: {
       text: `Daily New COVID-19 Cases in ${
         title.includes("Total") ? "U.S." : title
       }`,
       style: {
-        fontSize: 18
-      }
+        fontSize: 18,
+      },
     },
     credits: {
-      enabled: false
+      enabled: false,
     },
     yAxis: {
       title: {
-        text: "Number of Cases"
+        text: "Number of Cases",
       },
       labels: {
-        formatter: function() {
+        formatter: function () {
           return Highcharts.numberFormat(this.value, 0, ".", ",");
-        }
-      }
+        },
+      },
     },
     xAxis: {
       type: "datetime",
       dateTimeLabelFormats: {
         week: "%b %e",
-        day: "%b %e"
-      }
+        day: "%b %e",
+      },
     },
     series: [
       {
         name: "COVID-19 Cases",
         data: chartData,
-        color: "grey"
-      }
+        color: "grey",
+      },
     ],
     exporting: {
       buttons: {
         contextButton: {
           menuItems: ["downloadPNG", "downloadSVG"],
-          y: -2
-        }
-      }
-    }
+          y: -2,
+        },
+      },
+    },
   });
 }
 
@@ -105,100 +105,100 @@ export function createLineCharts(data, title) {
   const chartData = convertDataToChartData(data, "totalTestResults");
   Highcharts.setOptions({
     lang: {
-      thousandsSep: ","
-    }
+      thousandsSep: ",",
+    },
   });
   Highcharts.chart("linear-chart", {
     chart: {
       type: "spline",
-      zoomType: "x"
+      zoomType: "x",
     },
     caption: {
       text: "Sources: The COVID Tracking Project, The GailFosler Group",
-      align: "right"
+      align: "right",
     },
     title: {
       text: `Total Cumulative COVID-19 Cases in ${
         title.includes("Total") ? "U.S." : title
       }`,
       style: {
-        fontSize: 18
-      }
+        fontSize: 18,
+      },
     },
     credits: {
-      enabled: false
+      enabled: false,
     },
     tooltip: {
       shared: true,
-      crosshairs: false
+      crosshairs: false,
     },
     yAxis: [
       {
         title: {
           text: "Number of Cases",
           style: {
-            color: "#059FF3"
-          }
+            color: "#059FF3",
+          },
         },
         labels: {
-          formatter: function() {
+          formatter: function () {
             return Highcharts.numberFormat(this.value, 0, ".", ",");
           },
           style: {
-            color: "#059FF3"
-          }
+            color: "#059FF3",
+          },
         },
-        gridLineColor: "white"
+        gridLineColor: "white",
       },
       {
         opposite: true,
         title: {
           text: "Logarithmic Axis",
           style: {
-            color: "orange"
-          }
+            color: "orange",
+          },
         },
         min: 0,
         labels: {
           style: {
-            color: "orange"
+            color: "orange",
           },
-          formatter: function() {
+          formatter: function () {
             return Highcharts.numberFormat(this.value, 0, ".", ",");
-          }
+          },
         },
         type: "logarithmic",
         allowNegativeLog: true,
-        gridLineColor: "white"
-      }
+        gridLineColor: "white",
+      },
     ],
     xAxis: {
       type: "datetime",
       dateTimeLabelFormats: {
         week: "%b %e",
-        day: "%b %e"
-      }
+        day: "%b %e",
+      },
     },
     series: [
       {
         name: "COVID-19 Cases",
         data: chartData,
-        color: "#059FF3"
+        color: "#059FF3",
       },
       {
         name: "Logarithmic Scale",
         data: chartData,
         yAxis: 1,
-        color: "orange"
-      }
+        color: "orange",
+      },
     ],
     exporting: {
       buttons: {
         contextButton: {
-          menuItems: ["downloadPNG", "downloadSVG"]
-        }
-      }
-    }
+          menuItems: ["downloadPNG", "downloadSVG"],
+        },
+      },
+    },
   });
 }
 
@@ -209,58 +209,58 @@ export function createColumnTestCharts(data, title) {
   Highcharts.chart("column-chart-testings", {
     chart: {
       type: "column",
-      zoomType: "x"
+      zoomType: "x",
     },
     caption: {
       text: `Sources: The COVID Tracking Project, The GailFosler Group`,
       useHTML: true,
-      align: "right"
+      align: "right",
     },
     title: {
       text: `COVID-19 Testing In ${
         title.includes("Total") ? "U.S." : title
       } Per Day`,
       style: {
-        fontSize: 18
-      }
+        fontSize: 18,
+      },
     },
     legend: {
       title: {
         align: "center",
         style: {
-          textAlign: "center"
-        }
-      }
+          textAlign: "center",
+        },
+      },
     },
     credits: {
-      enabled: false
+      enabled: false,
     },
     yAxis: [
       {
         title: {
           text: "Number of Tests",
           style: {
-            color: "#059FF3"
-          }
+            color: "#059FF3",
+          },
         },
         gridLineColor: "white",
         min: 0,
         labels: {
-          formatter: function() {
+          formatter: function () {
             return Highcharts.numberFormat(this.value, 0, ".", ",");
           },
           style: {
-            color: "#059FF3"
-          }
-        }
+            color: "#059FF3",
+          },
+        },
       },
       {
         opposite: true,
         title: {
           text: "Percent",
           style: {
-            color: "orange"
-          }
+            color: "orange",
+          },
         },
         min: 0,
         max: 100,
@@ -268,34 +268,34 @@ export function createColumnTestCharts(data, title) {
         endOnTick: true,
         labels: {
           style: {
-            color: "orange"
+            color: "orange",
           },
-          formatter: function() {
+          formatter: function () {
             return Highcharts.numberFormat(this.value, 0, ".", ",");
-          }
-        }
-      }
+          },
+        },
+      },
     ],
     xAxis: {
       type: "datetime",
       dateTimeLabelFormats: {
         week: "%b %e",
-        day: "%b %e"
-      }
+        day: "%b %e",
+      },
     },
     plotOptions: {
       series: {
         allowPointSelect: true,
         marker: {
-          enabled: true
-        }
-      }
+          enabled: true,
+        },
+      },
     },
     series: [
       {
         name: "COVID-19 Tests",
         data: chartData,
-        color: "#059FF3"
+        color: "#059FF3",
       },
       {
         name: "Percent Positive",
@@ -303,22 +303,22 @@ export function createColumnTestCharts(data, title) {
         yAxis: 1,
         states: {
           hover: {
-            lineWidthPlus: 0
-          }
+            lineWidthPlus: 0,
+          },
         },
         lineWidth: 0,
         data: totalPPrecent,
-        color: "orange"
-      }
+        color: "orange",
+      },
     ],
     exporting: {
       buttons: {
         contextButton: {
           menuItems: ["downloadPNG", "downloadSVG"],
-          y: -2
-        }
-      }
-    }
+          y: -2,
+        },
+      },
+    },
   });
 }
 
@@ -327,45 +327,46 @@ export function createColumnChartPopulationConfirmed(data) {
   Highcharts.chart("column-chart-population-confirmed", {
     chart: {
       type: "column",
-      zoomType: "x"
+      zoomType: "x",
     },
     caption: {
       useHTML: true,
-      text: "Sources: The COVID Tracking Project, The GailFosler Group",
-      align: "right"
+      text:
+        "Sources: The COVID Tracking Project, The GailFosler Group, U.S. Census Bureau",
+      align: "right",
     },
     title: {
       text: `Top 20 States/Territories, Share of Population With Confirmed COVID-19`,
       style: {
-        fontSize: 18
-      }
+        fontSize: 18,
+      },
     },
     credits: {
-      enabled: false
+      enabled: false,
     },
     yAxis: {
       title: {
-        text: "Percent"
-      }
+        text: "Percent",
+      },
     },
     xAxis: {
-      categories: chartData.y
+      categories: chartData.y,
     },
     series: [
       {
         name: "Percent of Population, Cumulative",
         data: chartData.x,
-        color: "#7cb588"
-      }
+        color: "#7cb588",
+      },
     ],
     exporting: {
       buttons: {
         contextButton: {
           menuItems: ["downloadPNG", "downloadSVG"],
-          y: -2
-        }
-      }
-    }
+          y: -2,
+        },
+      },
+    },
   });
 }
 
@@ -378,17 +379,17 @@ export function createSelect(states, data) {
     option.value = Object.keys(STATES_NAMES)[i];
     select.add(option);
   }
-  select.addEventListener("change", e => {
+  select.addEventListener("change", (e) => {
     createColumnCharts(
-      data.filter(rec => rec.state === e.target.value),
+      data.filter((rec) => rec.state === e.target.value),
       STATES_NAMES[e.target.value]
     );
     createLineCharts(
-      data.filter(rec => rec.state === e.target.value),
+      data.filter((rec) => rec.state === e.target.value),
       STATES_NAMES[e.target.value]
     );
     createColumnTestCharts(
-      data.filter(rec => rec.state === e.target.value),
+      data.filter((rec) => rec.state === e.target.value),
       STATES_NAMES[e.target.value]
     );
   });
