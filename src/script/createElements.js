@@ -44,12 +44,23 @@ require("highcharts/modules/data")(Highcharts);
 require("highcharts/modules/pattern-fill")(Highcharts);
 require("highcharts/indicators/regressions")(Highcharts);
 
+Highcharts.setOptions({
+  lang: {
+    resetZoom: "Reset Zoom",
+  },
+});
+
 export function createColumnCharts(data, title) {
   const chartData = convertDataToLinearChartData(data, "positive");
   Highcharts.chart("column-chart", {
     chart: {
       type: "column",
       zoomType: "x",
+      resetZoomButton: {
+        position: {
+          align: "left",
+        },
+      },
     },
     caption: {
       text: "Sources: The COVID Tracking Project, The GailFosler Group",
@@ -112,6 +123,11 @@ export function createLineCharts(data, title) {
     chart: {
       type: "spline",
       zoomType: "x",
+      resetZoomButton: {
+        position: {
+          align: "left",
+        },
+      },
     },
     caption: {
       text: "Sources: The COVID Tracking Project, The GailFosler Group",
@@ -210,6 +226,11 @@ export function createColumnTestCharts(data, title) {
     chart: {
       type: "column",
       zoomType: "x",
+      resetZoomButton: {
+        position: {
+          align: "left",
+        },
+      },
     },
     caption: {
       text: `Sources: The COVID Tracking Project, The GailFosler Group`,
@@ -328,6 +349,11 @@ export function createColumnChartPopulationConfirmed(data) {
     chart: {
       type: "column",
       zoomType: "x",
+      resetZoomButton: {
+        position: {
+          align: "left",
+        },
+      },
     },
     caption: {
       useHTML: true,
