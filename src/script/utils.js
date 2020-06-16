@@ -1,8 +1,8 @@
-import { STATES_POPULATION } from "./constants";
+import { STATES_POPULATION, EMPTY_TILE_MAP } from "./constants";
 
 export function convertDataToChartData(data) {
   let date;
-  const convertedData = data.map(rec => {
+  const convertedData = data.map((rec) => {
     if (typeof rec.date === "number") {
       date =
         rec.date.toString().substr(0, 4) +
@@ -87,5 +87,14 @@ export function convertDataToPopulationConfirmedData(data) {
     return b[1] - a[1];
   });
   const chart = convertedData.slice(0, 20);
-  return { x: chart.map(x => x[1]), y: chart.map(x => x[0]) };
+  return { x: chart.map((x) => x[1]), y: chart.map((x) => x[0]) };
+}
+
+export function convertDataToTileMap(data) {
+  return EMPTY_TILE_MAP.map((rec) => {
+    return {
+      ...rec,
+      value: data.find((st) => st.state === rec["hc-a2"]).positive,
+    };
+  });
 }

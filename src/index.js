@@ -25,7 +25,13 @@ async function init() {
         id="column-chart-population-confirmed"
       ></div>
     </div>
-  </div>`;
+  </div>
+  <div class="chart-container">
+  <div class="chart">
+    <div class="tilemap" id="tilemap"></div>
+  </div>
+</div>
+  `;
   const usHistData = await axios.get("https://covidtracking.com/api/us/daily");
   const stateHistData = await axios.get(
     "https://covidtracking.com/api/states/daily"

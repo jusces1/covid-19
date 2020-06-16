@@ -1,9 +1,10 @@
-import Highcharts from "highcharts/highstock";
+import HighStocks from "highcharts/highstock";
 import {
   convertDataToChartData,
   convertDataToLinearChartData,
   convertDataToPPercent,
   convertDataToPopulationConfirmedData,
+  convertDataToTileMap,
 } from "./utils";
 import { STATES_NAMES } from "./constants";
 
@@ -36,15 +37,15 @@ import { STATES_NAMES } from "./constants";
     }
     return isNegative ? -result : result;
   };
-})(Highcharts);
+})(HighStocks);
 
 // Load module after Highcharts is loaded
-require("highcharts/modules/exporting")(Highcharts);
-require("highcharts/modules/data")(Highcharts);
-require("highcharts/modules/pattern-fill")(Highcharts);
-require("highcharts/indicators/regressions")(Highcharts);
+require("highcharts/modules/exporting")(HighStocks);
+require("highcharts/modules/data")(HighStocks);
+require("highcharts/modules/pattern-fill")(HighStocks);
+require("highcharts/indicators/regressions")(HighStocks);
 
-Highcharts.setOptions({
+HighStocks.setOptions({
   lang: {
     resetZoom: "Reset Zoom",
   },
@@ -52,7 +53,7 @@ Highcharts.setOptions({
 
 export function createColumnCharts(data, title) {
   const chartData = convertDataToLinearChartData(data, "positive");
-  Highcharts.chart("column-chart", {
+  HighStocks.chart("column-chart", {
     chart: {
       type: "column",
       zoomType: "x",
@@ -83,7 +84,7 @@ export function createColumnCharts(data, title) {
       },
       labels: {
         formatter: function () {
-          return Highcharts.numberFormat(this.value, 0, ".", ",");
+          return HighStocks.numberFormat(this.value, 0, ".", ",");
         },
       },
     },
@@ -114,12 +115,12 @@ export function createColumnCharts(data, title) {
 
 export function createLineCharts(data, title) {
   const chartData = convertDataToChartData(data, "totalTestResults");
-  Highcharts.setOptions({
+  HighStocks.setOptions({
     lang: {
       thousandsSep: ",",
     },
   });
-  Highcharts.chart("linear-chart", {
+  HighStocks.chart("linear-chart", {
     chart: {
       type: "spline",
       zoomType: "x",
@@ -158,7 +159,7 @@ export function createLineCharts(data, title) {
         },
         labels: {
           formatter: function () {
-            return Highcharts.numberFormat(this.value, 0, ".", ",");
+            return HighStocks.numberFormat(this.value, 0, ".", ",");
           },
           style: {
             color: "#059FF3",
@@ -180,7 +181,7 @@ export function createLineCharts(data, title) {
             color: "orange",
           },
           formatter: function () {
-            return Highcharts.numberFormat(this.value, 0, ".", ",");
+            return HighStocks.numberFormat(this.value, 0, ".", ",");
           },
         },
         type: "logarithmic",
@@ -222,7 +223,7 @@ export function createColumnTestCharts(data, title) {
   const chartData = convertDataToLinearChartData(data, "totalTestResults");
   const totalPPrecent = convertDataToPPercent(data, "totalTestResults");
 
-  Highcharts.chart("column-chart-testings", {
+  HighStocks.chart("column-chart-testings", {
     chart: {
       type: "column",
       zoomType: "x",
@@ -268,7 +269,7 @@ export function createColumnTestCharts(data, title) {
         min: 0,
         labels: {
           formatter: function () {
-            return Highcharts.numberFormat(this.value, 0, ".", ",");
+            return HighStocks.numberFormat(this.value, 0, ".", ",");
           },
           style: {
             color: "#059FF3",
@@ -292,7 +293,7 @@ export function createColumnTestCharts(data, title) {
             color: "orange",
           },
           formatter: function () {
-            return Highcharts.numberFormat(this.value, 0, ".", ",");
+            return HighStocks.numberFormat(this.value, 0, ".", ",");
           },
         },
       },
@@ -345,7 +346,7 @@ export function createColumnTestCharts(data, title) {
 
 export function createColumnChartPopulationConfirmed(data) {
   const chartData = convertDataToPopulationConfirmedData(data);
-  Highcharts.chart("column-chart-population-confirmed", {
+  HighStocks.chart("column-chart-population-confirmed", {
     chart: {
       type: "column",
       zoomType: "x",
@@ -393,6 +394,97 @@ export function createColumnChartPopulationConfirmed(data) {
         },
       },
     },
+  });
+}
+
+export function createTilemap(data) {
+  const chartData = convertDataToTileMap(data);
+  Highcharts.chart("tilemap", {
+    chart: {
+      type: "tilemap",
+      inverted: true,
+    },
+
+    title: {
+      text: "U.S. states by Covid-19 positive results",
+    },
+    caption: {
+      useHTML: true,
+      text:
+        "Sources: The COVID Tracking Project, U.S. Census Bureau, The GailFosler Group",
+      align: "right",
+    },
+    credits: {
+      enabled: false,
+    },
+    xAxis: {
+      visible: false,
+    },
+
+    yAxis: {
+      visible: false,
+    },
+    exporting: {
+      buttons: {
+        contextButton: {
+          menuItems: ["downloadPNG", "downloadSVG"],
+          y: -2,
+        },
+      },
+    },
+    colorAxis: {
+      dataClasses: [
+        {
+          from: 0,
+          to: 1000,
+          color: "#F9EDB3",
+          name: "< 1000",
+        },
+        {
+          from: 1000,
+          to: 10000,
+          color: "#FFC428",
+          name: "1000 - 10k",
+        },
+        {
+          from: 10000,
+          to: 100000,
+          color: "#FF7987",
+          name: "10k - 10k",
+        },
+        {
+          from: 100000,
+          color: "#FF2371",
+          name: "> 100k",
+        },
+      ],
+    },
+
+    tooltip: {
+      headerFormat: "",
+      pointFormat:
+        "Positive cases of <b> {point.name}</b> is <b>{point.value}</b>",
+    },
+
+    plotOptions: {
+      series: {
+        dataLabels: {
+          enabled: true,
+          format: "{point.hc-a2}",
+          color: "#000000",
+          style: {
+            textOutline: false,
+          },
+        },
+      },
+    },
+
+    series: [
+      {
+        name: "",
+        data: chartData,
+      },
+    ],
   });
 }
 
