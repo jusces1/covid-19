@@ -403,6 +403,7 @@ export function createTilemap(data) {
     chart: {
       type: "tilemap",
       inverted: true,
+      height: "80%",
     },
 
     title: {
